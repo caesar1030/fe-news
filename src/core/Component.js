@@ -1,9 +1,10 @@
-import { observable, observe } from "./observer.js";
+import { observable, observe } from './observer.js';
 
 export default class Component {
   parentElement;
   state;
   props;
+  test;
   constructor(parentElement, props) {
     this.parentElement = parentElement;
     this.props = props;
@@ -14,12 +15,13 @@ export default class Component {
 
   setup() {
     this.state = observable(this.initState());
-
-    observe(() => {
+    this.test = (() => {
       this.update();
       this.renderChildComponents();
       this.componentDidUpdate();
-    });
+    }).bind(this);
+
+    observe(this.test);
   }
 
   initState() {
@@ -29,7 +31,7 @@ export default class Component {
   setEvent() {}
 
   template() {
-    return "";
+    return '';
   }
 
   render() {

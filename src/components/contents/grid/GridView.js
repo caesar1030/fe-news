@@ -1,8 +1,8 @@
-import Component from "../../../core/Component.js";
-import { setGridPageNum, store } from "../../../store/store.js";
-import LeftButton from "../button/LeftButton.js";
-import RightButton from "../button/RightButton.js";
-import Logo from "./Logo.js";
+import Component from '../../../core/Component.js';
+import { setGridPageNum, store } from '../../../store/store.js';
+import LeftButton from '../button/LeftButton.js';
+import RightButton from '../button/RightButton.js';
+import Logo from './Logo.js';
 
 const LOGOS_NUM_PER_PAGE = 24;
 const MAX_PAGE_NUM = 4;
@@ -14,25 +14,25 @@ const RIGHT = 1;
 export default class GridView extends Component {
   setEvent() {
     const handleButtonClick = ({ target }) => {
-      if (!target.closest(".button")) return;
+      if (!target.closest('.button')) return;
 
       const {
         gridView: { pageNum },
       } = store.getState();
-      const direction = target.closest(".button--left") ? LEFT : RIGHT;
+      const direction = target.closest('.button--left') ? LEFT : RIGHT;
 
       store.dispatch(
         setGridPageNum((pageNum + direction + MAX_PAGE_NUM) % MAX_PAGE_NUM)
       );
     };
 
-    this.addEvent("click", ".news-list__grid", handleButtonClick);
+    this.addEvent('click', '.news-list__grid', handleButtonClick);
   }
 
   template() {
     const cellContainers = [...new Array(LOGOS_NUM_PER_PAGE)]
       .map((_) => `<li class="news-list__item"></li>`)
-      .join("");
+      .join('');
 
     return `
        <ul class="news-list__grid">
@@ -51,7 +51,7 @@ export default class GridView extends Component {
     } = store.getState();
 
     const selectedPresses =
-      subscriptionOption === "all"
+      subscriptionOption === 'all'
         ? presses
         : subscribingPresses?.map((subscribingPress) =>
             presses.find((press) => press.name === subscribingPress)
@@ -60,19 +60,19 @@ export default class GridView extends Component {
     if (!selectedPresses) return;
     const isFirstPage = pageNum === INITIAL_PAGE_NUM;
     const isLastPage =
-      subscriptionOption === "all"
+      subscriptionOption === 'all'
         ? pageNum === MAX_PAGE_NUM - 1
         : pageNum ===
             Math.ceil(subscribingPresses.length / LOGOS_NUM_PER_PAGE) ||
           subscribingPresses.length <= LOGOS_NUM_PER_PAGE;
 
-    const leftButton = this.parentElement.querySelector(".button--left");
-    const rightButton = this.parentElement.querySelector(".button--right");
-    !isFirstPage && new LeftButton(leftButton);
-    !isLastPage && new RightButton(rightButton);
+    const leftButton = this.parentElement.querySelector('.button--left');
+    const rightButton = this.parentElement.querySelector('.button--right');
+    this.a = !isFirstPage && new LeftButton(leftButton);
+    this.b = !isLastPage && new RightButton(rightButton);
 
     const cellContainers =
-      this.parentElement.querySelectorAll(".news-list__item");
+      this.parentElement.querySelectorAll('.news-list__item');
     const startIdx = pageNum * LOGOS_NUM_PER_PAGE;
     const endIdx = startIdx + LOGOS_NUM_PER_PAGE;
     const singleSlidePresses = selectedPresses.slice(startIdx, endIdx);
@@ -80,7 +80,7 @@ export default class GridView extends Component {
     singleSlidePresses.forEach((press, idx) => {
       const { logo_src, name } = press;
 
-      new Logo(cellContainers[idx], {
+      this.c = new Logo(cellContainers[idx], {
         name,
         logo_src,
       });

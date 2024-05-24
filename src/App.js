@@ -1,7 +1,7 @@
-import Component from "./core/Component.js";
-import LatestNews from "./components/latestNews/LatestNews.js";
-import Label from "./components/label/Label.js";
-import Contents from "./components/contents/Contents.js";
+import Component from './core/Component.js';
+import LatestNews from './components/latestNews/LatestNews.js';
+import Label from './components/label/Label.js';
+import Contents from './components/contents/Contents.js';
 
 export default class App extends Component {
   template() {
@@ -14,11 +14,11 @@ export default class App extends Component {
   }
 
   renderChildComponents() {
-    const newsStand = this.parentElement.querySelector(".news-stand");
-    new Label(newsStand);
-    const latestNews = this.parentElement.querySelector(".latest-news");
-    new LatestNews(latestNews);
-    const contents = this.parentElement.querySelector(".contents");
-    new Contents(contents);
+    const newsStand = this.parentElement.querySelector('.news-stand');
+    this.a = new Label(newsStand);
+    const latestNews = this.parentElement.querySelector('.latest-news');
+    this.b = new LatestNews(latestNews);
+    const contents = this.parentElement.querySelector('.contents');
+    this.c = new Contents(contents);
   }
 }

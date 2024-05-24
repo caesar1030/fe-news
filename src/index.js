@@ -1,3 +1,3 @@
-import App from "./App.js";
+import App from './App.js';
 
-new App(document.querySelector("#app"));
+const a = new App(document.querySelector('#app'));
